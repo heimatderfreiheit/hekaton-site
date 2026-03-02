@@ -177,6 +177,26 @@
       .frow{grid-template-columns:1fr}
       footer{padding:36px 24px;flex-direction:column;align-items:flex-start}
     }
+
+    /* ── MODALS ───────────────────────────────────────────── */
+    .modal-bg{display:none;position:fixed;inset:0;z-index:500;
+      background:rgba(35,29,31,0.82);backdrop-filter:blur(3px);
+      overflow-y:auto;padding:60px 24px}
+    .modal-bg.open{display:flex;justify-content:center;align-items:flex-start}
+    .modal-box{background:var(--w);max-width:760px;width:100%;
+      padding:56px 64px;position:relative;margin:auto}
+    .modal-close{position:absolute;top:20px;right:28px;background:none;border:none;
+      cursor:pointer;font-size:28px;color:var(--mu);line-height:1;transition:color .2s}
+    .modal-close:hover{color:var(--a)}
+    .modal-box h2{font-family:var(--H);font-size:42px;letter-spacing:1px;
+      text-transform:uppercase;margin-bottom:32px;color:var(--a)}
+    .modal-box h3{font-family:var(--H);font-size:22px;letter-spacing:1px;
+      text-transform:uppercase;margin:28px 0 10px;color:var(--a)}
+    .modal-box p{font-size:13px;line-height:1.8;color:#555;margin-bottom:14px}
+    .modal-box a{color:var(--g)}
+    @media(max-width:768px){
+      .modal-bg{padding:0}
+      .modal-box{padding:40px 24px;min-height:100vh}}
   </style>
 </head>
 <body class="de">
@@ -377,8 +397,8 @@
   </div>
   <div class="f-links">
     <a href="mailto:hallo@hekaton.berlin">hallo@hekaton.berlin</a>
-    <a href="#" data-d>Impressum</a><a href="#" data-e>Imprint</a>
-    <a href="#" data-d>Datenschutz</a><a href="#" data-e>Privacy</a>
+    <a href="#" onclick="openModal('modal-impressum');return false" data-d>Impressum</a><a href="#" onclick="openModal('modal-impressum');return false" data-e>Imprint</a>
+    <a href="#" onclick="openModal('modal-datenschutz');return false" data-d>Datenschutz</a><a href="#" onclick="openModal('modal-datenschutz');return false" data-e>Privacy</a>
   </div>
 </footer>
 
@@ -428,6 +448,69 @@
     });
   }, {threshold: 0.1});
   document.querySelectorAll('.r').forEach(function(el) { obs.observe(el); });
+
+  /* ── MODALS ──────────────────────────────────────────────── */
+  function openModal(id){
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(e,id){
+    if(e.target===document.getElementById(id)){
+      document.getElementById(id).classList.remove('open');
+      document.body.style.overflow='';
+    }
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){
+      ['modal-impressum','modal-datenschutz'].forEach(function(id){
+        document.getElementById(id).classList.remove('open');
+      });
+      document.body.style.overflow='';
+    }
+  });
 </script>
+
+<!-- IMPRESSUM MODAL -->
+<div class="modal-bg" id="modal-impressum" onclick="closeModal(event,'modal-impressum')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-impressum').classList.remove('open')">&times;</button>
+    <h2>Impressum</h2>
+    <p>Verantwortlich für diesen Internet-Auftritt ist:</p>
+    <p><strong>PROMETHEUS – Das Freiheitsinstitut gGmbH</strong><br/>
+    Mulackstraße 29<br/>10119 Berlin<br/>
+    Tel.: 030/23911073<br/>
+    <a href="mailto:info@prometheusinstitut.de">info@prometheusinstitut.de</a></p>
+    <p>Geschäftsführer: Frank Schäffler, Clemens Schneider<br/>
+    Amtsgericht Charlottenburg · Handelsregister Nr. HRB 163110 B</p>
+    <h3>Haftung</h3>
+    <p>Die Inhalte dieser Webseite wurden sorgfältig geprüft und nach bestem Wissen erstellt. Es wird keine Gewähr für die Vollständigkeit, Richtigkeit und Aktualität der Inhalte übernommen. Jegliche Haftung für Schäden, die direkt oder indirekt aus der Benutzung dieser Website entstehen, wird ausgeschlossen, soweit diese nicht auf Vorsatz oder grober Fahrlässigkeit beruhen.</p>
+    <h3>Abgrenzung</h3>
+    <p>Für die Inhalte und die Gestaltung verlinkter, externer Seiten wird keine Haftung übernommen. Wir distanzieren uns ausdrücklich von allen Inhalten verlinkter Seiten, die von Dritten betrieben werden.</p>
+    <h3>Urheberrechte</h3>
+    <p>Alle Rechte vorbehalten. Texte, Fotos, Grafiken und deren Anordnung unterliegen dem Schutz des Urheberrechts. Die Inhalte dieser Webseite dürfen nicht für kommerzielle Zwecke genutzt, verbreitet, kopiert, verändert oder weitergegeben werden.</p>
+  </div>
+</div>
+
+<!-- DATENSCHUTZ MODAL -->
+<div class="modal-bg" id="modal-datenschutz" onclick="closeModal(event,'modal-datenschutz')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-datenschutz').classList.remove('open')">&times;</button>
+    <h2>Datenschutz&shy;erklärung</h2>
+    <h3>1. Verantwortliche Stelle</h3>
+    <p>PROMETHEUS – Das Freiheitsinstitut gGmbH · Mulackstraße 29 · 10119 Berlin<br/>
+    Tel.: 030/23911073 · <a href="mailto:info@prometheusinstitut.de">info@prometheusinstitut.de</a></p>
+    <h3>2. Datenerfassung</h3>
+    <p>Beim Besuch dieser Website erfassen unsere Server automatisch technische Daten (Browsertyp, Betriebssystem, IP-Adresse, Uhrzeit des Seitenaufrufs). Diese Daten werden nicht mit anderen Datenquellen zusammengeführt und nach 7 Tagen gelöscht. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
+    <h3>3. Kontaktformular</h3>
+    <p>Wenn Sie sich über das Formular vorstellen, werden Ihre Angaben zur Bearbeitung gespeichert. Die Daten werden über Netlify Forms verarbeitet. Datenschutzerklärung Netlify: <a href="https://www.netlify.com/privacy/" target="_blank">netlify.com/privacy</a>. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
+    <h3>4. Google Fonts</h3>
+    <p>Diese Seite nutzt Google Fonts zur einheitlichen Darstellung von Schriftarten. Beim Laden einer Seite stellt Ihr Browser eine Verbindung zu Servern von Google her, wodurch Google Kenntnis über Ihren Seitenbesuch erlangt. Weitere Infos: <a href="https://developers.google.com/fonts/faq" target="_blank">developers.google.com/fonts/faq</a>. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
+    <h3>5. Ihre Rechte</h3>
+    <p>Sie haben jederzeit das Recht auf Auskunft über Ihre gespeicherten personenbezogenen Daten sowie das Recht auf Berichtigung, Sperrung oder Löschung. Wenden Sie sich dazu an die im Impressum angegebene Adresse. Außerdem steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu.</p>
+    <h3>6. SSL-Verschlüsselung</h3>
+    <p>Diese Seite nutzt SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie am „https://" in der Adresszeile und dem Schloss-Symbol Ihres Browsers.</p>
+  </div>
+</div>
+
 </body>
 </html>
