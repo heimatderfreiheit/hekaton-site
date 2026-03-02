@@ -182,6 +182,20 @@
       footer{padding:36px 24px;flex-direction:column;align-items:flex-start}
     }
 
+
+    .h-eye-link{color:inherit;text-decoration:none;border-bottom:1px solid rgba(0,105,56,0.4);
+      padding-bottom:1px;transition:border-color .2s}
+    .h-eye-link:hover{border-bottom-color:var(--g)}
+    .h-cta{margin-top:36px}
+    .h-cta-link{font-family:var(--H);font-size:16px;letter-spacing:3px;
+      text-transform:uppercase;color:var(--g);text-decoration:none;
+      border-bottom:1px solid var(--g);padding-bottom:2px;transition:opacity .2s}
+    .h-cta-link:hover{opacity:.7}
+    .f-links{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+    .f-row{display:flex;gap:28px;flex-wrap:wrap;justify-content:flex-end}
+    @media(max-width:768px){
+      .f-links{align-items:flex-start}
+      .f-row{justify-content:flex-start}}
     /* ── MODALS ───────────────────────────────────────────── */
     .modal-bg{display:none;position:fixed;inset:0;z-index:500;
       background:rgba(35,29,31,0.82);backdrop-filter:blur(3px);
@@ -216,11 +230,17 @@
 </nav>
 
 <section id="hero">
-  <p class="h-eye"><span data-d>Prometheus · Berlin</span><span data-e>Prometheus · Berlin</span></p>
+  <p class="h-eye"><a href="https://heimatderfreiheit.de" target="_blank" class="h-eye-link"><span data-d>Prometheus · Heimat der Freiheit</span><span data-e>Prometheus · Home of Freedom</span></a></p>
   <h1 class="h-hl r">
     <span data-d>Die<br/><em>Freiheits&shy;bewegung</em><br/>baut sich hier.</span>
     <span data-e>The<br/><em>freedom</em><br/>movement<br/>builds here.</span>
   </h1>
+  <p class="h-cta r">
+    <a href="#introduce" class="h-cta-link">
+      <span data-d>Vorstellen &#8594;</span>
+      <span data-e>Introduce yourself &#8594;</span>
+    </a>
+  </p>
 </section>
 
 <div id="break">
@@ -404,9 +424,10 @@
     <span class="f-addr">Mulackstra&#223;e 29 &#183; 10119 Berlin</span>
   </div>
   <div class="f-links">
-    <a href="mailto:contact&#64;hekaton.berlin">contact&#64;hekaton.berlin</a>
+    <div class="f-row"><a href="mailto:contact&#64;hekaton.berlin">contact&#64;hekaton.berlin</a></div>
+    <div class="f-row">
     <a href="#" onclick="openModal('modal-impressum');return false" data-d>Impressum</a><a href="#" onclick="openModal('modal-impressum');return false" data-e>Imprint</a>
-    <a href="#" onclick="openModal('modal-datenschutz');return false" data-d>Datenschutz</a><a href="#" onclick="openModal('modal-datenschutz');return false" data-e>Privacy</a>
+    <a href="#" onclick="openModal('modal-datenschutz');return false" data-d>Datenschutz</a><a href="#" onclick="openModal('modal-datenschutz');return false" data-e>Privacy</a></div>
   </div>
 </footer>
 
