@@ -42,7 +42,7 @@
 
     /* ── HERO ─────────────────────────────────────────────── */
     #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;
-      padding:0 48px 100px;padding-top:96px;border-bottom:1px solid var(--lt)}
+      padding:0 48px 100px;padding-top:calc(96px + 40px);border-bottom:1px solid var(--lt)}
     .h-eye{font-family:var(--H);font-size:11px;letter-spacing:5px;
       color:var(--g);margin-bottom:20px;text-transform:uppercase}
     .h-hl{font-family:var(--H);font-size:clamp(72px,10vw,152px);
@@ -158,12 +158,12 @@
 
     /* ── MOBILE ───────────────────────────────────────────── */
     @media(max-width:768px){
-      nav{height:72px;padding:0 24px}
-      nav.scrolled{height:56px}
-      nav img{height:52px}
-      nav.scrolled img{height:40px}
-      #lang{height:72px;right:24px}
-      #hero{padding:0 24px 72px;padding-top:72px}
+      nav{height:80px;padding:0 24px}
+      nav.scrolled{height:64px}
+      nav img{height:68px}
+      nav.scrolled img{height:52px}
+      #lang{height:80px;right:24px}
+      #hero{min-height:auto;padding:32px 24px 72px;padding-top:calc(72px + 32px);justify-content:flex-start}
       .h-hl{font-size:clamp(52px,13vw,90px)}
       #break{padding:60px 24px}
       #success{padding:64px 24px}
@@ -394,7 +394,7 @@
     document.getElementById('btn-de').style.display = (l === 'en') ? '' : 'none';
   }
   // Auto-detect language on load
-  setLang(navigator.language.startsWith('en') ? 'en' : 'de');
+  setLang('de'); // always start in German
 
   /* ── SCROLL-AWARE NAV ─────────────────────────────────── */
   var nav = document.getElementById('nav');
