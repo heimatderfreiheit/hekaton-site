@@ -450,14 +450,17 @@
   document.querySelectorAll('.r').forEach(function(el) { obs.observe(el); });
 
   /* ── MODALS ──────────────────────────────────────────────── */
+  function closeModalById(id){
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow='';
+  }
   function openModal(id){
     document.getElementById(id).classList.add('open');
     document.body.style.overflow='hidden';
   }
   function closeModal(e,id){
     if(e.target===document.getElementById(id)){
-      document.getElementById(id).classList.remove('open');
-      document.body.style.overflow='';
+      closeModalById(id);
     }
   }
   document.addEventListener('keydown',function(e){
@@ -473,7 +476,7 @@
 <!-- IMPRESSUM MODAL -->
 <div class="modal-bg" id="modal-impressum" onclick="closeModal(event,'modal-impressum')">
   <div class="modal-box">
-    <button class="modal-close" onclick="document.getElementById('modal-impressum').classList.remove('open')">&times;</button>
+    <button class="modal-close" onclick="closeModalById('modal-impressum')">&times;</button>
     <h2>Impressum</h2>
     <p>Verantwortlich für diesen Internet-Auftritt ist:</p>
     <p><strong>PROMETHEUS – Das Freiheitsinstitut gGmbH</strong><br/>
@@ -494,7 +497,7 @@
 <!-- DATENSCHUTZ MODAL -->
 <div class="modal-bg" id="modal-datenschutz" onclick="closeModal(event,'modal-datenschutz')">
   <div class="modal-box">
-    <button class="modal-close" onclick="document.getElementById('modal-datenschutz').classList.remove('open')">&times;</button>
+    <button class="modal-close" onclick="closeModalById('modal-datenschutz')">&times;</button>
     <h2>Datenschutz&shy;erklärung</h2>
     <h3>1. Verantwortliche Stelle</h3>
     <p>PROMETHEUS – Das Freiheitsinstitut gGmbH · Mulackstraße 29 · 10119 Berlin<br/>
