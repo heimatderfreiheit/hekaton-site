@@ -19,7 +19,7 @@
 
     /* ── LANG TOGGLE ─────────────────────────────────────── */
     #lang{position:fixed;top:0;right:48px;z-index:200;
-      height:96px;display:flex;align-items:center;transition:height .3s ease}
+      height:110px;display:flex;align-items:center;transition:height .3s ease}
     .lb{background:none;border:none;cursor:pointer;font-family:var(--H);
       font-size:13px;letter-spacing:2px;color:rgba(255,255,255,0.55);
       padding:4px 8px;transition:color .2s}
@@ -28,21 +28,21 @@
 
     /* ── NAV ─────────────────────────────────────────────── */
     nav{position:fixed;top:0;left:0;width:100%;z-index:100;
-      height:96px;padding:0 48px;
+      height:110px;padding:0 48px;
       display:flex;align-items:center;
       background:var(--a);
       border-bottom:1px solid transparent;
       transition:height .3s ease, border-color .3s ease, box-shadow .3s ease}
     nav.scrolled{
-      height:68px;
+      height:80px;
       border-bottom-color:rgba(255,255,255,0.07);
       box-shadow:0 2px 20px rgba(0,0,0,0.25)}
-    nav img{height:72px;width:auto;display:block;transition:height .3s ease}
-    nav.scrolled img{height:52px}
+    nav img{height:90px;width:auto;display:block;transition:height .3s ease}
+    nav.scrolled img{height:70px}
 
     /* ── HERO ─────────────────────────────────────────────── */
     #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;
-      padding:0 48px 100px;padding-top:calc(96px + 40px);border-bottom:1px solid var(--lt)}
+      padding:0 48px 100px;padding-top:calc(110px + 40px);border-bottom:1px solid var(--lt)}
     .h-eye{font-family:var(--H);font-size:11px;letter-spacing:5px;
       color:var(--g);margin-bottom:20px;text-transform:uppercase}
     .h-hl{font-family:var(--H);font-size:clamp(72px,10vw,152px);
@@ -394,7 +394,7 @@
     document.getElementById('btn-de').style.display = (l === 'en') ? '' : 'none';
   }
   // Auto-detect language on load
-  setLang('de'); // always start in German
+  setLang(navigator.language.startsWith('en') ? 'en' : 'de');
 
   /* ── SCROLL-AWARE NAV ─────────────────────────────────── */
   var nav = document.getElementById('nav');
@@ -403,7 +403,7 @@
     var scrolled = window.scrollY > 60;
     nav.classList.toggle('scrolled', scrolled);
     // Sync lang toggle height with nav
-    langDiv.style.height = scrolled ? '68px' : '';
+    langDiv.style.height = scrolled ? '80px' : '';
   }
   window.addEventListener('scroll', syncNav, {passive: true});
   syncNav(); // run once on load
