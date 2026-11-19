@@ -219,7 +219,7 @@
 </head>
 <body class="de">
 
-<!-- Language toggle: shows only the OTHER language --><!-- netlify-forms-rescan -->
+<!-- Language toggle: shows only the OTHER language -->
 <div id="lang">
   <button class="lb" id="btn-en" onclick="setLang('en')">EN</button>
   <button class="lb" id="btn-de" onclick="setLang('de')" style="display:none">DE</button>
@@ -354,11 +354,7 @@
       <p class="form-left-sub" data-e>No application materials. No deck. Three questions.</p>
     </div>
     <div class="r">
-      <form id="frm" name="hekaton-vorstellung" method="POST"
-            data-netlify="true" data-netlify-honeypot="bot-field"
-            onsubmit="submitForm(event)">
-        <input type="hidden" name="form-name" value="hekaton-vorstellung"/>
-        <p style="display:none"><input name="bot-field"/></p>
+      <form id="frm" name="hekaton-vorstellung" onsubmit="submitForm(event)">
 
         <div class="field-group">
           <div class="frow">
@@ -407,8 +403,8 @@
         </button>
       </form>
       <div class="f-ok" id="ok">
-        <span data-d>Danke. Wir melden uns.</span>
-        <span data-e>Thank you. We'll be in touch.</span>
+        <span data-d>Dein Mailprogramm &#246;ffnet sich mit deinen Antworten. Einmal absenden, dann melden wir uns.</span>
+        <span data-e>Your mail app opens with your answers. Hit send and we'll be in touch.</span>
       </div>
     </div>
   </div>
@@ -455,15 +451,27 @@
   function submitForm(e) {
     e.preventDefault();
     var form = document.getElementById('frm');
-    var data = new FormData(form);
-    fetch('/', {method: 'POST', body: data})
-      .then(function() {
-        form.style.display = 'none';
-        document.getElementById('ok').style.display = 'block';
-      })
-      .catch(function() {
-        form.submit(); // fallback: native submit
-      });
+    var v = function(n) { return (form.elements[n].value || '').trim(); };
+    var to = 'contact' + '@' + 'hekaton.berlin';
+    var subject = 'Vorstellung: ' + v('vorname') + ' ' + v('nachname');
+    var body = [
+      'Name: ' + v('vorname') + ' ' + v('nachname'),
+      'E-Mail: ' + v('email'),
+      '',
+      '01 Idee in einem Satz:',
+      v('idee'),
+      '',
+      '02 Verbreitete Meinung, die ich für falsch halte:',
+      v('freiheit-meinung'),
+      '',
+      '03 Was passiert, wenn ich es nicht tue:',
+      v('nicht-tun')
+    ].join('\n');
+    window.location.href = 'mailto:' + to +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(body);
+    form.style.display = 'none';
+    document.getElementById('ok').style.display = 'block';
   }
 
   /* ── SCROLL REVEAL ────────────────────────────────────── */
@@ -528,9 +536,9 @@
     <p>PROMETHEUS – Das Freiheitsinstitut gGmbH · Mulackstraße 29 · 10119 Berlin<br/>
     Tel.: 030/23911073 · <a href="mailto:info@prometheusinstitut.de">info@prometheusinstitut.de</a></p>
     <h3>2. Datenerfassung</h3>
-    <p>Beim Besuch dieser Website erfassen unsere Server automatisch technische Daten (Browsertyp, Betriebssystem, IP-Adresse, Uhrzeit des Seitenaufrufs). Diese Daten werden nicht mit anderen Datenquellen zusammengeführt und nach 7 Tagen gelöscht. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
+    <p>Beim Besuch dieser Website erfassen unsere Server automatisch technische Daten (Browsertyp, Betriebssystem, IP-Adresse, Uhrzeit des Seitenaufrufs). Diese Daten werden nicht mit anderen Datenquellen zusammengeführt und nach 7 Tagen gelöscht. Die Website wird bei GitHub Pages (GitHub, Inc.) gehostet. Datenschutzerkl&#228;rung GitHub: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" target="_blank">docs.github.com</a>. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
     <h3>3. Kontaktformular</h3>
-    <p>Wenn Sie sich über das Formular vorstellen, werden Ihre Angaben zur Bearbeitung gespeichert. Die Daten werden über Netlify Forms verarbeitet. Datenschutzerklärung Netlify: <a href="https://www.netlify.com/privacy/" target="_blank">netlify.com/privacy</a>. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
+    <p>Wenn Sie sich über das Formular vorstellen, werden Ihre Angaben zur Bearbeitung gespeichert. Das Formular &#246;ffnet Ihr E-Mail-Programm. Ihre Angaben erreichen uns per E-Mail und werden nicht auf dieser Website gespeichert. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
     <h3>4. Google Fonts</h3>
     <p>Diese Seite nutzt Google Fonts zur einheitlichen Darstellung von Schriftarten. Beim Laden einer Seite stellt Ihr Browser eine Verbindung zu Servern von Google her, wodurch Google Kenntnis über Ihren Seitenbesuch erlangt. Weitere Infos: <a href="https://developers.google.com/fonts/faq" target="_blank">developers.google.com/fonts/faq</a>. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
     <h3>5. Ihre Rechte</h3>
